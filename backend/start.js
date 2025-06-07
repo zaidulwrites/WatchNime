@@ -1,43 +1,42 @@
 // backend/start.js
-// This script manually loads .env variables and then runs server.js
 
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
-import { fileURLToPath } from 'url';
 import { spawn } from 'child_process';
+import { fileURLToPath } from 'url';
+import { resolve } from 'path';
+import { existsSync, readFileSync } from 'fs';
 
+// Resolve directory
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = resolve(__filename, '..'); // Points to the backend directory
+const __dirname = resolve(__filename, '..');
+const envPath = resolve(__dirname, '.env');
 
-const envPath = resolve(__dirname, '.env'); // Path to your .env file
-
-try {
+// ✅ Load .env ONLY in local development
+if (process.env.NODE_ENV !== 'production' && existsSync(envPath)) {
   const envContent = readFileSync(envPath, 'utf8');
   const lines = envContent.split('\n');
 
   for (const line of lines) {
     const trimmedLine = line.trim();
-    if (trimmedLine && !trimmedLine.startsWith('#')) { // Ignore empty lines and comments
+    if (trimmedLine && !trimmedLine.startsWith('#')) {
       const [key, ...valueParts] = trimmedLine.split('=');
-      const value = valueParts.join('=').replace(/^"|"$/g, ''); // Remove quotes if present
+      const value = valueParts.join('=').replace(/^"|"$/g, '');
       if (key) {
         process.env[key.trim()] = value.trim();
-        console.log(`Loaded env var: ${key.trim()}=${value.trim().substring(0, 10)}...`); // Log safely
+        console.log(`Loaded env var: ${key.trim()}=${value.trim().substring(0, 10)}...`);
       }
     }
   }
-  console.log(".env variables manually loaded.");
-} catch (error) {
-  console.error("Error loading .env file manually:", error);
-  console.error("Please ensure .env file exists at:", envPath);
-  process.exit(1);
+
+  console.log(".env variables manually loaded from file.");
+} else {
+  console.log("Skipping .env manual load (Render or production environment).");
 }
 
-// Now, spawn the actual server.js process
+// Start the main server
 console.log("Starting server.js...");
 const serverProcess = spawn('node', ['server.js'], {
-  stdio: 'inherit', // Pipe child process stdout/stderr to parent
-  cwd: __dirname // Ensure child process runs in the backend directory
+  stdio: 'inherit',
+  cwd: __dirname,
 });
 
 serverProcess.on('error', (err) => {
