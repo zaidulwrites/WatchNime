@@ -1,5 +1,5 @@
 import React from 'react';
-import AnimeCard from './AnimeCard.tsx';
+import AnimeCard from './AnimeCard';
 import { Anime } from '../services/api';
 
 interface AnimeGridProps {

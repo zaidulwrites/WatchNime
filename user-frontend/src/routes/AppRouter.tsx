@@ -3,13 +3,13 @@ import React, { useContext } from 'react';
 import { AppContext } from '../App'; // Import AppContext
 
 // Import page components
-import HomePage from '../pages/HomePage.tsx';
-import AnimeDetailPage from '../pages/AnimeDetailPage.tsx';
-import SeasonPage from '../pages/SeasonPage.tsx';
-import ContactUsPage from '../pages/ContactUsPage.tsx';
-import RequestAnimePage from '../pages/RequestAnimePage.tsx';
-import JoinUsPage from '../pages/JoinUsPage.tsx';
-import LicensePage from '../pages/LicensePage.tsx'; // Import License Page
+import HomePage from '../pages/HomePage';
+import AnimeDetailPage from '../pages/AnimeDetailPage';
+import SeasonPage from '../pages/SeasonPage';
+import ContactUsPage from '../pages/ContactUsPage';
+import RequestAnimePage from '../pages/RequestAnimePage';
+import JoinUsPage from '../pages/JoinUsPage';
+import LicensePage from '../pages/LicensePage'; // Import License Page
 
 const AppRouter: React.FC = () => {
   const context = useContext(AppContext);

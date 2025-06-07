@@ -4,10 +4,10 @@ import React, { useState, createContext, useContext, useEffect, useCallback } fr
 import axios from 'axios';
 
 // Import reusable components
-import Header from './components/Header.tsx';
+import Header from './components/Header';
 
 // Import the router component
-import AppRouter from './routes/AppRouter.tsx';
+import AppRouter from './routes/AppRouter';
 
 // Import types from services
 import { Anime, Genre } from './services/api.ts';
@@ -39,7 +39,7 @@ interface AppContextType {
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://watchnime.onrender.com';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState<string>('homepage');

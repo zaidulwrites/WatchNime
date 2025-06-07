@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AppContext } from '../App.tsx';
+import { AppContext } from '../App';
 import { Anime } from '../services/api';
 
 interface AnimeCardProps {
