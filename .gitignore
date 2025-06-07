@@ -1,0 +1,27 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.DS_Store # macOS specific
+.env # This will ignore .env files in the root and subdirectories unless overridden
+
+# Build artifacts
+dist/
+build/
+
+# IDE specific files
+.idea/ # IntelliJ IDEA
+.vscode/ # Visual Studio Code
+*.iml # IntelliJ IDEA module files
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+
+# SQLite database files (if any are created locally by Turso/libsql)
+*.sqlite
+*.sqlite3
+*.db

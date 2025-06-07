@@ -1,0 +1,16 @@
+// D:\AN WEB\admin-frontend\tsconfig.node.json
+{
+  "extends": "./tsconfig.json", // If you have a main tsconfig.json
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tsbuildinfo",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"]
+  },
+  "include": [
+    "vite.config.ts",
+    // "vitest.config.ts" // Include if you use Vitest
+  ]
+}

@@ -1,0 +1,50 @@
+/* admin-frontend/src/styles/admin.css */
+
+/*
+   IMPORTANT: If you have a separate index.css that imports @tailwind directives globally,
+   remove these three lines from here to avoid duplication.
+   Otherwise, keep them here.
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add your custom admin-specific CSS here */
+
+/* Basic button styling (example, you can use Tailwind classes directly in JSX too) */
+button {
+    @apply bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-md transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+/* General layout styling */
+body {
+    background-color: #1a202c; /* Dark background */
+    color: #e2e8f0; /* Light text color */
+    font-family: 'Inter', sans-serif; /* Using Inter font as per instructions */
+}
+
+/* Container styling */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Flexbox utilities (examples, use Tailwind classes directly where possible) */
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+/* Ensure rounded corners on elements as per instructions */
+.rounded-lg {
+  border-radius: 0.5rem; /* Tailwind's default rounded-lg */
+}
