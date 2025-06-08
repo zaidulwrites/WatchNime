@@ -1,16 +1,22 @@
-// D:\AN WEB\admin-frontend\tsconfig.node.json
+// Path: project-root/admin-frontend/tsconfig.node.json
 {
-  "extends": "./tsconfig.json", // If you have a main tsconfig.json
+  "extends": "./tsconfig.json", // Inherits from the main tsconfig.json
   "compilerOptions": {
-    "composite": true,
-    "tsBuildInfoFile": "./node_modules/.tsbuildinfo",
+    "composite": true, // Marks this as a composite project
+    "tsBuildInfoFile": "./node_modules/.tsbuildinfo", // For faster incremental builds
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
-    "lib": ["ESNext", "DOM", "DOM.Iterable"]
+    "lib": ["ESNext", "DOM", "DOM.Iterable"], // Ensure DOM libs are included if needed
+    
+    "declaration": true, // <-- Add this: Emit declaration files (.d.ts)
+    "declarationMap": true, // <-- Add this: Generate sourcemaps for declarations
+    // "noEmit": false // No need to explicitly set to false if declaration: true is present, as it implies emit.
   },
   "include": [
     "vite.config.ts",
-    // "vitest.config.ts" // Include if you use Vitest
+    "postcss.config.js", // If you use PostCSS config in TypeScript
+    "tailwind.config.ts"  // If you use Tailwind config in TypeScript
+    // "vitest.config.ts" // Uncomment if you are using Vitest
   ]
 }
