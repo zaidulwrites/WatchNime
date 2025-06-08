@@ -1,6 +1,6 @@
 // admin-frontend/src/pages/AdminDashboard.tsx
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext'; // Path to AuthContext.tsx
 import * as adminApi from '../services/adminApi'; // Path to adminApi
@@ -8,13 +8,12 @@ import * as adminApi from '../services/adminApi'; // Path to adminApi
 const AdminDashboard = () => {
   const { isAuthenticated, loading: authLoading } = useAuth(); // Only use auth status from context
   const [animeData, setAnimeData] = useState<adminApi.Anime[]>([]); // Local state for anime
-  const [genres, setGenres] = useState<string[]>([]); // Local state for genres
+  const [, setGenres] = useState<string[]>([]); // Local state for genres
   const [dashboardLoading, setDashboardLoading] = useState(true); // Loading state for dashboard's own data
   const [dashboardError, setDashboardError] = useState<string | null>(null); // Error state for dashboard's own data
   const [animeIdToOpen, setAnimeIdToOpen] = useState<string>(''); // State for ID input
   const navigate = useNavigate();
 
-  // Fetch data specifically for this dashboard
   useEffect(() => {
     const fetchDashboardData = async () => {
       setDashboardLoading(true);
@@ -24,34 +23,29 @@ const AdminDashboard = () => {
           adminApi.fetchAllGenresAdmin(),
           adminApi.fetchAllAnimeAdmin()
         ]);
-        setGenres(fetchedGenres.map(g => g.name));
+        setGenres(fetchedGenres.map((g: { name: string }) => g.name)); // fix type of g
         setAnimeData(fetchedAnime);
       } catch (err: any) {
         console.error("Failed to fetch dashboard data:", err);
-        // Ensure error is caught and displayed
         setDashboardError(err.message || "Failed to load dashboard data. Please ensure backend is running and accessible.");
       } finally {
         setDashboardLoading(false);
       }
     };
 
-    // Only fetch data if authenticated and not already loading auth state
     if (isAuthenticated && !authLoading) {
       fetchDashboardData();
     }
-    // If not authenticated, do nothing, App.tsx will handle redirect to login
-    // If authLoading is true, it means auth provider is still checking, so wait.
-  }, [isAuthenticated, authLoading]); // Re-run if auth status changes
+  }, [isAuthenticated, authLoading]);
 
   const handleOpenAnimeById = () => {
     if (animeIdToOpen.trim()) {
       navigate(`/anime/${animeIdToOpen.trim()}`);
     } else {
-      alert("Please enter a valid Anime ID."); // Use custom modal in production
+      alert("Please enter a valid Anime ID.");
     }
   };
 
-  // Show global loading if AuthContext is still determining auth state
   if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white text-2xl">
@@ -60,13 +54,10 @@ const AdminDashboard = () => {
     );
   }
 
-  // If not authenticated, navigate to login
-  // This should ideally be handled by App.tsx's Routes, but keeping it here for safety.
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 
-  // Show dashboard's own loading state
   if (dashboardLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white text-2xl">
@@ -75,7 +66,6 @@ const AdminDashboard = () => {
     );
   }
 
-  // Show dashboard's own error state (if data fetch failed)
   if (dashboardError) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-900 text-red-500 text-xl">
@@ -92,7 +82,6 @@ const AdminDashboard = () => {
       <h1 className="text-3xl font-bold mb-6 text-center text-orange-500">Admin Dashboard</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Anime Management Card */}
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
           <h2 className="text-xl font-semibold mb-4">Anime Management</h2>
           <p className="text-gray-400 mb-4">Manage anime titles, descriptions, and details.</p>
@@ -101,7 +90,6 @@ const AdminDashboard = () => {
               Add New Anime
             </Link>
           </div>
-          {/* Display existing anime for easy access/editing */}
           {animeData.length > 0 ? (
             <div className="mt-4">
               <h3 className="text-lg font-semibold mb-2">Existing Anime ({animeData.length})</h3>
@@ -120,7 +108,6 @@ const AdminDashboard = () => {
           )}
         </div>
 
-        {/* Open Anime by ID Card */}
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
           <h2 className="text-xl font-semibold mb-4">Open Anime by ID</h2>
           <p className="text-gray-400 mb-4">Quickly access an anime using its unique ID.</p>
@@ -140,9 +127,6 @@ const AdminDashboard = () => {
             </button>
           </div>
         </div>
-
-        {/* Removed Genre Management Card */}
-        {/* Removed User Management Card */}
       </div>
     </div>
   );

@@ -1,5 +1,3 @@
-// admin-frontend/src/components/forms/AddEpisodeForm.tsx
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -93,11 +91,22 @@ const AddEpisodeForm: React.FC<AddEpisodeFormProps> = ({ seasonId, episodeId }) 
       } else {
         throw new Error("Season ID is missing for adding an episode.");
       }
+
       await fetchInitialData();
 
-      const season = findSeason(findAnime(findEpisode(null, seasonId, episodeId)?.seasonId || '')?.id || '', seasonId);
-      if (season && season.animeId) {
-        navigate(`/anime/${season.animeId}`);
+      if (seasonId && episodeId) {
+        const foundEpisode = findEpisode('', seasonId, episodeId);
+        const animeId = foundEpisode?.seasonId
+          ? findAnime(foundEpisode.seasonId)?.id
+          : undefined;
+
+        const season = animeId ? findSeason(animeId, seasonId) : undefined;
+
+        if (season?.animeId) {
+          navigate(`/anime/${season.animeId}`);
+        } else {
+          navigate('/dashboard');
+        }
       } else {
         navigate('/dashboard');
       }
@@ -128,7 +137,6 @@ const AddEpisodeForm: React.FC<AddEpisodeFormProps> = ({ seasonId, episodeId }) 
       </h2>
       {error && <p className="text-red-500 text-center mb-4">{error}</p>}
       <form onSubmit={handleSubmit}>
-        {/* Title */}
         <div className="mb-4">
           <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="title">
             Title
@@ -144,7 +152,6 @@ const AddEpisodeForm: React.FC<AddEpisodeFormProps> = ({ seasonId, episodeId }) 
           />
         </div>
 
-        {/* 480p Link */}
         <div className="mb-4">
           <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="link480p">
             480p Link
@@ -159,7 +166,6 @@ const AddEpisodeForm: React.FC<AddEpisodeFormProps> = ({ seasonId, episodeId }) 
           />
         </div>
 
-        {/* 720p Link */}
         <div className="mb-4">
           <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="link720p">
             720p Link
@@ -174,7 +180,6 @@ const AddEpisodeForm: React.FC<AddEpisodeFormProps> = ({ seasonId, episodeId }) 
           />
         </div>
 
-        {/* 1080p Link */}
         <div className="mb-4">
           <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="link1080p">
             1080p Link
@@ -200,9 +205,19 @@ const AddEpisodeForm: React.FC<AddEpisodeFormProps> = ({ seasonId, episodeId }) 
           <button
             type="button"
             onClick={() => {
-              const season = findSeason(findAnime(findEpisode(null, seasonId, episodeId)?.seasonId || '')?.id || '', seasonId);
-              if (season && season.animeId) {
-                navigate(`/anime/${season.animeId}`);
+              if (seasonId && episodeId) {
+                const foundEpisode = findEpisode('', seasonId, episodeId);
+                const animeId = foundEpisode?.seasonId
+                  ? findAnime(foundEpisode.seasonId)?.id
+                  : undefined;
+
+                const season = animeId ? findSeason(animeId, seasonId) : undefined;
+
+                if (season?.animeId) {
+                  navigate(`/anime/${season.animeId}`);
+                } else {
+                  navigate('/dashboard');
+                }
               } else {
                 navigate('/dashboard');
               }

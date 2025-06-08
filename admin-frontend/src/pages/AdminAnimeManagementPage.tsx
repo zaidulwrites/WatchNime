@@ -1,13 +1,11 @@
 // admin-frontend/src/pages/AdminAnimeManagementPage.tsx
 
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import * as adminApi from '../services/adminApi';
 
 const AdminAnimeManagementPage = () => {
-  const { animeData, fetchInitialData, loading, error } = useAuth();
-  const navigate = useNavigate();
+  const { animeData, fetchInitialData, loading } = useAuth();
 
   const handleDeleteAnime = async (animeId: string, animeTitle: string) => {
     if (!window.confirm(`Are you sure you want to delete "${animeTitle}" and all its related seasons/episodes?`)) {
@@ -31,16 +29,6 @@ const AdminAnimeManagementPage = () => {
     );
   }
 
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-900 text-red-500 text-xl">
-        Error: {error}
-        <button onClick={fetchInitialData} className="ml-4 bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg">
-          Retry Loading Data
-        </button>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">

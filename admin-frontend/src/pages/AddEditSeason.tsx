@@ -1,6 +1,5 @@
 // admin-frontend/src/pages/AddEditSeason.tsx
 
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import AddSeasonForm from '../components/forms/AddSeasonForm'; // Correctly import AddSeasonForm
 

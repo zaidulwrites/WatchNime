@@ -3,9 +3,10 @@
 // by checking isAuthenticated directly. This component can be used
 // if you want to wrap specific parts of the UI that require auth,
 // but for page-level routing, AdminRouter's switch case is primary.
+
 import React, { useContext } from 'react';
-import { AuthContext } from '../App';
-import LoginPage from '../pages/LoginPage'; // Assuming LoginPage is in pages
+import { AuthContext } from '../context/AuthContext'; // ✅ Corrected import
+import LoginPage from '../pages/LoginPage';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;

@@ -1,6 +1,6 @@
 // admin-frontend/src/pages/AdminAnimeDetail.tsx
 
-import React, { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useAuth } from '../context/AuthContext';
 import * as adminApi from "../services/adminApi";

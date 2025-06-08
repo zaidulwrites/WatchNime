@@ -17,7 +17,6 @@ const LoginPage = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  const VITE_ADMIN_API_BASE_URL = import.meta.env.VITE_ADMIN_API_BASE_URL;
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();

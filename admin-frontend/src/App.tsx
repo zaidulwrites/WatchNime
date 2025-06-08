@@ -20,7 +20,7 @@ import './styles/admin.css';
 import './index.css';
 
 const App: React.FC = () => {
-  const { user, loading, isAuthenticated } = useAuth();
+  const { loading, isAuthenticated } = useAuth();
 
   if (loading) {
     return (
