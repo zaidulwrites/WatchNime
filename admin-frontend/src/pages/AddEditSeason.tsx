@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import AddSeasonForm from '../components/forms/AddSeasonForm.tsx'; // Correctly import AddSeasonForm
+import AddSeasonForm from '../components/forms/AddSeasonForm'; // Correctly import AddSeasonForm
 
 const AddEditSeason = () => {
   const { animeId, id } = useParams<{ animeId: string; id: string }>(); // Get animeId and season ID from URL

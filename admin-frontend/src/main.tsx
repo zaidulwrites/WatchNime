@@ -2,8 +2,8 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx'; // App.tsx is now the main application component
-import { AuthProvider } from './context/AuthContext.tsx'; // Import AuthProvider
+import App from './App'; // App.tsx is now the main application component
+import { AuthProvider } from './context/AuthContext'; // Import AuthProvider
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

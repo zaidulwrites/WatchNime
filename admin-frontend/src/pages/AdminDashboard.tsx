@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.tsx'; // Path to AuthContext.tsx
+import { useAuth } from '../context/AuthContext'; // Path to AuthContext.tsx
 import * as adminApi from '../services/adminApi'; // Path to adminApi
 
 const AdminDashboard = () => {

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.tsx'; // Correct path for .tsx
+import { useAuth } from '../context/AuthContext'; // Correct path for .tsx
 
 const Header = () => {
   const { user, logout, isAuthenticated } = useAuth(); // Get user, logout, isAuthenticated

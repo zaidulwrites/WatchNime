@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.tsx'; // Correct path to AuthContext.tsx
+import { useAuth } from '../context/AuthContext'; // Correct path to AuthContext.tsx
 import * as adminApi from '../services/adminApi'; // Correct path to adminApi
 
 // Interface for form data

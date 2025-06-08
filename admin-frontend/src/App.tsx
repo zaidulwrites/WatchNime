@@ -2,19 +2,19 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Header from './components/Header.tsx';
-import LoginPage from './pages/LoginPage.tsx';
-import AdminDashboard from './pages/AdminDashboard.tsx';
-import AddEditAnime from './pages/AddEditAnime.tsx';
-import AddEditSeason from './pages/AddEditSeason.tsx'; // Import AddEditSeason
-import AddEditEpisode from './pages/AddEditEpisode.tsx'; // Import AddEditEpisode
-import AdminAnimeDetail from './pages/AdminAnimeDetail.tsx';
+import Header from './components/Header';
+import LoginPage from './pages/LoginPage';
+import AdminDashboard from './pages/AdminDashboard';
+import AddEditAnime from './pages/AddEditAnime';
+import AddEditSeason from './pages/AddEditSeason'; // Import AddEditSeason
+import AddEditEpisode from './pages/AddEditEpisode'; // Import AddEditEpisode
+import AdminAnimeDetail from './pages/AdminAnimeDetail';
 // If AdminAnimeManagementPage and Genres are removed from dashboard,
 // you might want to remove these imports or keep them if they are still routed elsewhere.
 // For now, let's keep them as routes are defined for them.
-import AdminAnimeManagementPage from './pages/AdminAnimeManagementPage.tsx';
+import AdminAnimeManagementPage from './pages/AdminAnimeManagementPage';
 
-import { useAuth } from './context/AuthContext.tsx';
+import { useAuth } from './context/AuthContext';
 
 import './styles/admin.css';
 import './index.css';
