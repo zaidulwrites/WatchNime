@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { AppContext } from '../App';
 import { fetchSeasonById } from '../services/api';
-import { Season as SeasonType, Episode as EpisodeType } from '../services/api';
+import { Season as SeasonType } from '../services/api';
 
 const SeasonPage: React.FC = () => {
   const context = useContext(AppContext);

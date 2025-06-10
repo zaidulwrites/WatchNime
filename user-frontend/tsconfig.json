@@ -16,7 +16,12 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Output settings */
+    "outDir": "./dist",       // ✅ JS files will go here
+    "rootDir": "./src",       // ✅ Source lives here
+    "allowJs": true           // ✅ Prevent errors from existing .js files
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

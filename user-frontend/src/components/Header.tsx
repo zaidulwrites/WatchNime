@@ -1,11 +1,14 @@
 // user-frontend/src/components/Header.tsx
 
 import React, { useState, useContext } from 'react';
-import { AppContext } from '../App.tsx'; // Import AppContext
+import { AppContext } from '../App'; // Import AppContext
 
 const Header: React.FC = () => {
   // Destructure setCurrentPage and setSearchTerm from AppContext
-  const { setCurrentPage, setSearchTerm } = useContext(AppContext);
+  const context = useContext(AppContext);
+if (!context) throw new Error("AppContext not found");
+const { setCurrentPage, setSearchTerm } = context;
+
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for side menu visibility
   const [isSearchOpen, setIsSearchOpen] = useState(false); // State for search bar visibility
   const [localSearchInput, setLocalSearchInput] = useState(''); // Local state for search input field

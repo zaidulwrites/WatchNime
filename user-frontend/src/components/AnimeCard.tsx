@@ -7,7 +7,10 @@ interface AnimeCardProps {
 }
 
 const AnimeCard: React.FC<AnimeCardProps> = ({ anime }) => {
-  const { setCurrentPage, setSelectedAnimeId } = useContext(AppContext);
+  const context = useContext(AppContext);
+if (!context) throw new Error("AppContext not found");
+const { setCurrentPage, setSelectedAnimeId } = context;
+
 
   const handleClick = () => {
     setSelectedAnimeId(anime.id);

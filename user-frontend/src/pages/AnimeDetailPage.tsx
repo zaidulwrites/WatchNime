@@ -2,11 +2,20 @@
 import React, { useContext, useEffect } from 'react';
 import { AppContext } from '../App';
 import { fetchAnimeById } from '../services/api'; // Import API function
+import { Anime } from '../services/api';
 
 const AnimeDetailPage: React.FC = () => {
-  const {
-    setCurrentPage, selectedAnimeId, findAnime, setAnimeData, setSelectedSeasonId
-  } = useContext(AppContext);
+  const context = useContext(AppContext);
+if (!context) throw new Error("AppContext not found");
+
+const {
+  setCurrentPage,
+  selectedAnimeId,
+  findAnime,
+  setAnimeData,
+  setSelectedSeasonId
+} = context;
+
 
   const anime = findAnime(selectedAnimeId!); // Get anime data from global state
 
@@ -14,7 +23,7 @@ const AnimeDetailPage: React.FC = () => {
     if (selectedAnimeId) {
       fetchAnimeById(selectedAnimeId)
         .then(res => {
-          setAnimeData(prev => prev.map(a => a.id === selectedAnimeId ? res : a));
+          setAnimeData((prev: Anime[]) => prev.map((a: Anime) => a.id === selectedAnimeId ? res : a));
         })
         .catch(err => console.error('Error fetching single anime:', err));
     }

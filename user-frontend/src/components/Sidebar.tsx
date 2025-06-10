@@ -8,7 +8,10 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
-  const { setCurrentPage } = useContext(AppContext); // No isAdmin or toggleAdminMode here
+  const context = useContext(AppContext);
+if (!context) throw new Error("AppContext not found");
+const { setCurrentPage } = context;
+
 
   const handleLinkClick = (page: string) => {
     setCurrentPage(page);
