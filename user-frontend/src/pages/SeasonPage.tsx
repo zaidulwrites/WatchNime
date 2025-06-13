@@ -1,8 +1,8 @@
-// user-frontend/src/pages/SeasonPage.tsx
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { AppContext } from '../App';
 import { fetchSeasonById } from '../services/api';
 import { Season as SeasonType } from '../services/api';
+import AdScript from '../components/Ads/AdScript'; // ⬅️ AdScript import
 
 const SeasonPage: React.FC = () => {
   const context = useContext(AppContext);
@@ -148,6 +148,11 @@ const SeasonPage: React.FC = () => {
             ) : (
               <p className="text-gray-400">No episodes available for this season.</p>
             )}
+
+            {/* ✅ Ad Script placed below episode list */}
+            <div className="mt-6">
+              <AdScript />
+            </div>
           </div>
         </div>
       </div>

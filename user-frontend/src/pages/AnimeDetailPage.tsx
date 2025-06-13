@@ -1,9 +1,8 @@
-// user-frontend/src/pages/AnimeDetailPage.tsx
 import React, { useContext, useEffect } from 'react';
 import { AppContext } from '../App';
 import { fetchAnimeById } from '../services/api';
 import { Anime } from '../services/api';
-import AdScript from '../components/Ads/AdScript'; // ⬅️ NEW IMPORT
+import AdScript from '../components/Ads/AdScript'; // ⬅️ AdScript import
 
 const AnimeDetailPage: React.FC = () => {
   const context = useContext(AppContext);
@@ -80,7 +79,7 @@ const AnimeDetailPage: React.FC = () => {
               </p>
             </div>
 
-            {/* 🔻 AD SCRIPT PLACEMENT HERE */}
+            {/* ✅ Ad Script */}
             <AdScript />
 
             <h3 className="text-2xl font-bold mb-4 mt-6 text-orange-400">Seasons</h3>
