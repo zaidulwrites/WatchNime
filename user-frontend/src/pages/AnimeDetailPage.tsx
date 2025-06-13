@@ -1,29 +1,31 @@
 // user-frontend/src/pages/AnimeDetailPage.tsx
 import React, { useContext, useEffect } from 'react';
 import { AppContext } from '../App';
-import { fetchAnimeById } from '../services/api'; // Import API function
+import { fetchAnimeById } from '../services/api';
 import { Anime } from '../services/api';
+import AdScript from '../components/Ads/AdScript'; // ⬅️ NEW IMPORT
 
 const AnimeDetailPage: React.FC = () => {
   const context = useContext(AppContext);
-if (!context) throw new Error("AppContext not found");
+  if (!context) throw new Error("AppContext not found");
 
-const {
-  setCurrentPage,
-  selectedAnimeId,
-  findAnime,
-  setAnimeData,
-  setSelectedSeasonId
-} = context;
+  const {
+    setCurrentPage,
+    selectedAnimeId,
+    findAnime,
+    setAnimeData,
+    setSelectedSeasonId
+  } = context;
 
-
-  const anime = findAnime(selectedAnimeId!); // Get anime data from global state
+  const anime = findAnime(selectedAnimeId!);
 
   useEffect(() => {
     if (selectedAnimeId) {
       fetchAnimeById(selectedAnimeId)
         .then(res => {
-          setAnimeData((prev: Anime[]) => prev.map((a: Anime) => a.id === selectedAnimeId ? res : a));
+          setAnimeData((prev: Anime[]) =>
+            prev.map((a: Anime) => a.id === selectedAnimeId ? res : a)
+          );
         })
         .catch(err => console.error('Error fetching single anime:', err));
     }
@@ -45,7 +47,7 @@ const {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white pb-8">
-      {/* Main Banner Image - use anime.poster directly */}
+      {/* Banner */}
       <div className="relative w-full h-48 sm:h-64 md:h-80 lg:h-96 overflow-hidden rounded-b-lg shadow-xl">
         <img
           src={anime.poster || `https://placehold.co/1200x300/4A5568/CBD5E0?text=No+Banner`}
@@ -70,32 +72,18 @@ const {
 
             <div className="bg-gray-800 p-6 rounded-lg shadow-inner mb-6">
               <h3 className="text-xl font-semibold mb-3 text-orange-300">Details</h3>
-              {/* Ensure anime.allDetails is properly formatted or handled */}
               <pre className="text-gray-200 whitespace-pre-wrap font-sans">
                 {anime.allDetails || 'No additional details available.'}
               </pre>
               <p className="mt-2 text-gray-200">
                 <span className="font-semibold">Genres:</span> {anime.genres.map(g => g.name).join(', ') || 'N/A'}
               </p>
-              {/* Additional details like Release, Type, etc., if they exist in allDetails string or are fetched separately */}
-              {/* Example of parsing from allDetails, if it's a JSON string: */}
-              {/* {anime.allDetails && (() => {
-                  try {
-                      const details = JSON.parse(anime.allDetails);
-                      return (
-                          <>
-                              {details.release && <p className="text-gray-200"><span className="font-semibold">Release:</span> {details.release}</p>}
-                              {details.type && <p className="text-gray-200"><span className="font-semibold">Type:</span> {details.type}</p>}
-                              {details.quality && <p className="text-gray-200"><span className="font-semibold">Quality:</span> {details.quality}</p>}
-                          </>
-                      );
-                  } catch (e) {
-                      return null; // Not a JSON string
-                  }
-              })()} */}
             </div>
 
-            <h3 className="text-2xl font-bold mb-4 text-orange-400">Seasons</h3>
+            {/* 🔻 AD SCRIPT PLACEMENT HERE */}
+            <AdScript />
+
+            <h3 className="text-2xl font-bold mb-4 mt-6 text-orange-400">Seasons</h3>
             {anime.seasons && anime.seasons.length > 0 ? (
               <div className="space-y-4">
                 {anime.seasons.map((season) => (
@@ -104,10 +92,9 @@ const {
                     className="bg-gray-800 p-4 rounded-lg shadow-md flex items-center space-x-4 cursor-pointer hover:bg-gray-700 transition-colors duration-200"
                     onClick={() => {
                       setSelectedSeasonId(season.id);
-                      setCurrentPage('seasonDetail'); // This will trigger AppRouter to render SeasonDetailPage
+                      setCurrentPage('seasonDetail');
                     }}
                   >
-                    {/* Season Image - use anime.poster or generic placeholder */}
                     <img
                       src={anime.poster || `https://placehold.co/80x112/4A5568/CBD5E0?text=Season+Img`}
                       alt={`${season.title} Poster`}

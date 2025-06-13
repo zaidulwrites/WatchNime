@@ -107,46 +107,40 @@ const SeasonPage: React.FC = () => {
                 {season.episodes.map((episode) => (
                   <div
                     key={episode.id}
-                    className="bg-gray-800 p-4 rounded-lg shadow-md flex items-center space-x-4 hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
-                    onClick={() => {
-                      console.log("Clicked episode:", episode.title, "ID:", episode.id);
-                      // You can handle modal open or navigation here.
-                    }}
+                    className="bg-gray-800 p-4 rounded-lg shadow-md hover:bg-gray-700 transition-colors duration-200"
                   >
-                    <div className="flex-grow">
-                      <h4 className="text-xl font-semibold">{episode.title}</h4>
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        {episode.link480p && (
-                          <a
-                            href={episode.link480p}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="bg-blue-500 hover:bg-blue-600 text-white text-sm px-3 py-1 rounded-full"
-                          >
-                            480p
-                          </a>
-                        )}
-                        {episode.link720p && (
-                          <a
-                            href={episode.link720p}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="bg-blue-500 hover:bg-blue-600 text-white text-sm px-3 py-1 rounded-full"
-                          >
-                            720p
-                          </a>
-                        )}
-                        {episode.link1080p && (
-                          <a
-                            href={episode.link1080p}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="bg-blue-500 hover:bg-blue-600 text-white text-sm px-3 py-1 rounded-full"
-                          >
-                            1080p
-                          </a>
-                        )}
-                      </div>
+                    <h4 className="text-xl font-semibold mb-2">{episode.title}</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {episode.link480p && (
+                        <a
+                          href={episode.link480p}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-blue-500 hover:bg-blue-600 text-white text-sm px-3 py-1 rounded-full"
+                        >
+                          480p
+                        </a>
+                      )}
+                      {episode.link720p && (
+                        <a
+                          href={episode.link720p}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-blue-500 hover:bg-blue-600 text-white text-sm px-3 py-1 rounded-full"
+                        >
+                          720p
+                        </a>
+                      )}
+                      {episode.link1080p && (
+                        <a
+                          href={episode.link1080p}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-blue-500 hover:bg-blue-600 text-white text-sm px-3 py-1 rounded-full"
+                        >
+                          1080p
+                        </a>
+                      )}
                     </div>
                   </div>
                 ))}
