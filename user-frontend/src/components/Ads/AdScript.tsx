@@ -2,8 +2,9 @@ import { useEffect } from 'react';
 
 const AdScript = () => {
   useEffect(() => {
-    // Inject global ad script (if not already)
-    const globalScriptId = 'profitablerate-ad-script';
+    const globalScriptId = 'profitablerate-global-script';
+
+    // Inject the global ad script (only once)
     if (!document.getElementById(globalScriptId)) {
       const globalScript = document.createElement('script');
       globalScript.src = '//pl26898592.profitableratecpm.com/dd/45/70/dd4570f10c3909a60545b6d702f75d39.js';
@@ -13,34 +14,43 @@ const AdScript = () => {
       document.body.appendChild(globalScript);
     }
 
-    // Inject invoke ad script into container
-    const invokeScript = document.createElement('script');
-    invokeScript.src = '//pl26898601.profitableratecpm.com/554b1f56f294bf75beeef98599be9619/invoke.js';
-    invokeScript.async = true;
-    invokeScript.setAttribute('data-cfasync', 'false');
+    // Inject the native invoke ad
+    const containerId = 'container-554b1f56f294bf75beeef98599be9619';
+    const container = document.getElementById(containerId);
 
-    const container = document.getElementById('container-554b1f56f294bf75beeef98599be9619');
     if (container) {
-      container.innerHTML = ''; // Clean in case re-render
+      container.innerHTML = ''; // Clear on re-render
+
+      const invokeScript = document.createElement('script');
+      invokeScript.src = '//pl26898601.profitableratecpm.com/554b1f56f294bf75beeef98599be9619/invoke.js';
+      invokeScript.async = true;
+      invokeScript.setAttribute('data-cfasync', 'false');
+
       container.appendChild(invokeScript);
     }
 
-    // Optional cleanup (only for global ad)
+    // Optional cleanup: remove only the global ad script
     return () => {
-      const existingScript = document.getElementById(globalScriptId);
-      if (existingScript) {
-        document.body.removeChild(existingScript);
+      const script = document.getElementById(globalScriptId);
+      if (script) {
+        document.body.removeChild(script);
       }
     };
   }, []);
 
   return (
-    <div className="my-6 w-full flex justify-center items-center flex-col gap-6">
-      {/* Global ad (auto-injected anywhere by script) */}
+    <div className="w-full flex flex-col items-center gap-4 my-6 px-4">
+      {/* Global script effect zone (ad may be injected anywhere) */}
       <div id="ad-slot" className="w-full" />
 
-      {/* Native invoke ad (injects here only) */}
-      <div id="container-554b1f56f294bf75beeef98599be9619" className="w-full max-w-[700px]" />
+      {/* Fixed-size invoke ad (ad injected directly here) */}
+      <div
+        id="container-554b1f56f294bf75beeef98599be9619"
+        className="w-full max-w-[700px] h-[100px] bg-gray-800 rounded-lg flex items-center justify-center"
+      >
+        {/* fallback loader text (optional) */}
+        <span className="text-gray-400 text-sm">Ad loading...</span>
+      </div>
     </div>
   );
 };
