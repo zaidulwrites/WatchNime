@@ -49,12 +49,12 @@ const AnimeDetailPage: React.FC = () => {
       {/* Banner */}
       <div className="relative w-full h-48 sm:h-64 md:h-80 lg:h-96 overflow-hidden rounded-b-lg shadow-xl">
         <img
-          src={anime.poster || `https://placehold.co/1200x300/4A5568/CBD5E0?text=No+Banner`}
+          src={anime.poster || "https://placehold.co/1200x300/4A5568/CBD5E0?text=No+Banner"}
           alt={`${anime.title} Banner`}
           className="w-full h-full object-cover object-center"
           onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
             e.currentTarget.onerror = null;
-            e.currentTarget.src = `https://placehold.co/1200x300/4A5568/CBD5E0?text=No+Banner`;
+            e.currentTarget.src = "https://placehold.co/1200x300/4A5568/CBD5E0?text=No+Banner";
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90"></div>
@@ -69,9 +69,22 @@ const AnimeDetailPage: React.FC = () => {
             <h2 className="text-3xl font-bold mb-3 text-orange-400">{anime.title}</h2>
             <p className="text-gray-300 mb-4 leading-relaxed">{anime.description}</p>
 
-            {/* ✅ Ad Script */}
+            {/* All Details and Genres */}
+            <div className="p-6 rounded-lg mb-6 bg-gray-800 shadow-inner">
+              <h3 className="text-xl font-semibold mb-3 text-orange-300">Details</h3>
+              <pre className="text-gray-200 whitespace-pre-wrap font-sans">
+                {anime.allDetails || 'No additional details available.'}
+              </pre>
+              <p className="mt-2 text-gray-200">
+                <span className="font-semibold">Genres:</span>{' '}
+                {anime.genres.map(g => g.name).join(', ') || 'N/A'}
+              </p>
+            </div>
+
+            {/* Ad */}
             <AdScript />
 
+            {/* Seasons */}
             <h3 className="text-2xl font-bold mb-4 mt-6 text-orange-400">Seasons</h3>
             {anime.seasons && anime.seasons.length > 0 ? (
               <div className="space-y-4">
@@ -85,12 +98,12 @@ const AnimeDetailPage: React.FC = () => {
                     }}
                   >
                     <img
-                      src={anime.poster || `https://placehold.co/80x112/4A5568/CBD5E0?text=Season+Img`}
+                      src={anime.poster || "https://placehold.co/80x112/4A5568/CBD5E0?text=Season+Img"}
                       alt={`${season.title} Poster`}
                       className="w-20 h-28 object-cover rounded-md flex-shrink-0"
                       onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                         e.currentTarget.onerror = null;
-                        e.currentTarget.src = `https://placehold.co/80x112/4A5568/CBD5E0?text=Season+Img`;
+                        e.currentTarget.src = "https://placehold.co/80x112/4A5568/CBD5E0?text=Season+Img";
                       }}
                     />
                     <h4 className="text-xl font-semibold text-white">{season.title}</h4>
