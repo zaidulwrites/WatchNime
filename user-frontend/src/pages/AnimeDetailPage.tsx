@@ -69,13 +69,11 @@ const AnimeDetailPage: React.FC = () => {
             <h2 className="text-3xl font-bold mb-3 text-orange-400">{anime.title}</h2>
             <p className="text-gray-300 mb-4 leading-relaxed">{anime.description}</p>
 
-            {/* All Details and Genres */}
-            <div className="p-6 rounded-lg mb-6 bg-gray-800 shadow-inner">
-              <h3 className="text-xl font-semibold mb-3 text-orange-300">Details</h3>
-              <pre className="text-gray-200 whitespace-pre-wrap font-sans">
-                {anime.allDetails || 'No additional details available.'}
-              </pre>
-              <p className="mt-2 text-gray-200">
+            {/* All Details and Genres (no border box) */}
+            <div className="text-gray-200 mb-6 leading-relaxed space-y-1">
+              <h3 className="text-xl font-semibold mb-2 text-orange-300">Details</h3>
+              <pre className="whitespace-pre-wrap font-sans">{anime.allDetails || 'No additional details available.'}</pre>
+              <p className="mt-2">
                 <span className="font-semibold">Genres:</span>{' '}
                 {anime.genres.map(g => g.name).join(', ') || 'N/A'}
               </p>
