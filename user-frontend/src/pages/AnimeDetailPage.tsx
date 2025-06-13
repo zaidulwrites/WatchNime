@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { AppContext } from '../App';
 import { fetchAnimeById } from '../services/api';
 import { Anime } from '../services/api';
-import AdScript from '../components/Ads/AdScript'; // ⬅️ AdScript import
+import AdScript from '../components/Ads/AdScript';
 
 const AnimeDetailPage: React.FC = () => {
   const context = useContext(AppContext);
@@ -68,16 +68,6 @@ const AnimeDetailPage: React.FC = () => {
           <div className="flex-grow">
             <h2 className="text-3xl font-bold mb-3 text-orange-400">{anime.title}</h2>
             <p className="text-gray-300 mb-4 leading-relaxed">{anime.description}</p>
-
-            <div className="bg-gray-800 p-6 rounded-lg shadow-inner mb-6">
-              <h3 className="text-xl font-semibold mb-3 text-orange-300">Details</h3>
-              <pre className="text-gray-200 whitespace-pre-wrap font-sans">
-                {anime.allDetails || 'No additional details available.'}
-              </pre>
-              <p className="mt-2 text-gray-200">
-                <span className="font-semibold">Genres:</span> {anime.genres.map(g => g.name).join(', ') || 'N/A'}
-              </p>
-            </div>
 
             {/* ✅ Ad Script */}
             <AdScript />
