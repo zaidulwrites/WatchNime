@@ -1,5 +1,3 @@
-// user-frontend/src/App.tsx
-
 import React, { useState, createContext, useEffect, useCallback } from 'react';
 
 // Import reusable components
@@ -28,12 +26,12 @@ interface AppContextType {
   setGenres: React.Dispatch<React.SetStateAction<string[]>>;
   loading: boolean;
   error: string | null;
-  searchTerm: string; // Search term state for filtering anime
-  setSearchTerm: React.Dispatch<React.SetStateAction<string>>; // Setter for search term
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
   findAnime: (id: string) => Anime | undefined;
   findSeason: (animeId: string, seasonId: string) => api.Season | undefined;
   findEpisode: (animeId: string, seasonId: string, episodeId: string) => api.Episode | undefined;
-  fetchInitialData: (searchTerm?: string) => Promise<void>; // fetchInitialData can take a search term
+  fetchInitialData: (searchTerm?: string) => Promise<void>;
 }
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -48,14 +46,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [genres, setGenres] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState<string>(''); // Initialize search term state
+  const [searchTerm, setSearchTerm] = useState<string>('');
+
+  // ✅ Restore last visited page from history on first load
+  useEffect(() => {
+    const historyState = window.history.state;
+    if (historyState && historyState.page) {
+      setCurrentPage(historyState.page);
+    }
+  }, []);
 
   // Callback to fetch initial data, can accept an optional search term
   const fetchInitialData = useCallback(async (currentSearchTerm?: string) => {
     setLoading(true);
     setError(null);
     try {
-      // Pass the search term to fetchAnime API call
       const [animeRes, genresRes] = await Promise.all([
         api.fetchAnime(currentSearchTerm),
         api.fetchGenres()
@@ -71,24 +76,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, []);
 
   useEffect(() => {
-    // Re-fetch initial data whenever searchTerm changes
     fetchInitialData(searchTerm);
-  }, [fetchInitialData, searchTerm]); // Add searchTerm as a dependency
+  }, [fetchInitialData, searchTerm]);
 
-  // Helper function to find anime by ID from the fetched data
   const findAnime = (id: string) => animeData.find(a => a.id === id);
-  // Helper function to find a season within an anime by their IDs
+
   const findSeason = (animeId: string, seasonId: string) => {
     const anime = findAnime(animeId);
     return anime && anime.seasons ? anime.seasons.find(s => s.id === seasonId) : undefined;
   };
-  // Helper function to find an episode within a season by their IDs
+
   const findEpisode = (animeId: string, seasonId: string, episodeId: string) => {
     const season = findSeason(animeId, seasonId);
     return season && season.episodes ? season.episodes.find(e => e.id === episodeId) : undefined;
   };
 
-  // Context value to be provided to consuming components
   const contextValue: AppContextType = {
     currentPage, setCurrentPage,
     selectedAnimeId, setSelectedAnimeId,
@@ -97,7 +99,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     animeData, setAnimeData,
     genres, setGenres,
     loading, error,
-    searchTerm, setSearchTerm, // Include search state in context
+    searchTerm, setSearchTerm,
     findAnime, findSeason, findEpisode,
     fetchInitialData
   };
