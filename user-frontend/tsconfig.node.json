@@ -1,4 +1,3 @@
-// D:\AN WEB\admin-frontend\tsconfig.node.json
 {
   "extends": "./tsconfig.json", // If you have a main tsconfig.json
   "compilerOptions": {
