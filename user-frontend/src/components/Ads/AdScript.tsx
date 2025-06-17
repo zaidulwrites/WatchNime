@@ -2,7 +2,18 @@ import { useLayoutEffect } from 'react';
 
 const AdScript = () => {
   useLayoutEffect(() => {
-    // Wait until DOM is fully ready
+    // 1️⃣ Inject Popunder Script (once)
+    const popunderId = 'profitablerate-popunder-script';
+    if (!document.getElementById(popunderId)) {
+      const popunderScript = document.createElement('script');
+      popunderScript.src = '//pl26940269.profitableratecpm.com/69/37/4b/69374bfaeefabfba6bb51d7d87bf8601.js';
+      popunderScript.type = 'text/javascript';
+      popunderScript.async = true;
+      popunderScript.id = popunderId;
+      document.body.appendChild(popunderScript);
+    }
+
+    // 2️⃣ Delay to inject banner/display ad
     const timeout = setTimeout(() => {
       const globalScriptId = 'profitablerate-ad-script';
       if (!document.getElementById(globalScriptId)) {
@@ -16,14 +27,14 @@ const AdScript = () => {
 
       const container = document.getElementById('container-554b1f56f294bf75beeef98599be9619');
       if (container) {
-        container.innerHTML = ''; // Clean previous
+        container.innerHTML = ''; // Clean previous content
         const invokeScript = document.createElement('script');
         invokeScript.src = '//pl26898601.profitableratecpm.com/554b1f56f294bf75beeef98599be9619/invoke.js';
         invokeScript.async = true;
         invokeScript.setAttribute('data-cfasync', 'false');
         container.appendChild(invokeScript);
       }
-    }, 1000); // 1 second delay
+    }, 1000); // Delay 1 second to let DOM load
 
     return () => clearTimeout(timeout);
   }, []);
