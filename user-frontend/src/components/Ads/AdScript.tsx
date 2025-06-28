@@ -40,9 +40,26 @@ const AdScript = () => {
   }, []);
 
   return (
-    <div className="my-6 w-full flex justify-center items-center flex-col gap-6">
-      <div id="container-554b1f56f294bf75beeef98599be9619" className="w-full max-w-[700px]" />
-    </div>
+    <>
+      {/* Inline Ad Container */}
+      <div className="my-6 w-full flex justify-center items-center flex-col gap-6">
+        <div id="container-554b1f56f294bf75beeef98599be9619" className="w-full max-w-[700px]" />
+      </div>
+
+      {/* ✅ CoinPayu Fixed Banner */}
+      <a
+        href="https://www.coinpayu.com/?r=Person3"
+        className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-[9999]"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://www.coinpayu.com/static/earners_banner/320X50.gif"
+          alt="coinpayu"
+          title="Join coinpayu to earn!"
+        />
+      </a>
+    </>
   );
 };
 
